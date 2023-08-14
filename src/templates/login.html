@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block title %}Log In{% endblock %}
+
+{% block main %}
+    <form action="/login" method="post" class="w-50 mx-auto">
+        <div class="mb-3 text-center">
+            <h3>Log In</h3>
+        </div>
+        <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" id="username" name="username" required>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" name="password" required>
+        </div>
+        <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="show-password" onclick="showPassword()">
+            <label class="form-check-label" for="show-password">Show Password</label>
+        </div>
+        <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="remember-me" name="remember-me">
+            <label class="form-check-label" for="remmeber-me">Remember Me</label>
+        </div>
+        <button type="submit" class="mx-auto btn btn-primary">Log In</button>
+      </form>
+
+      <script>
+        function showPassword() {
+            password = document.getElementById('password');
+            if (password.type === 'password') {
+                password.type = 'text';
+            }
+            else {
+                password.type = 'password';
+            }
+        }
+    </script>
+{% endblock %}

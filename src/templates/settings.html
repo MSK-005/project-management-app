@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block title %}Settings{% endblock %}
+
+{% block main %}
+    <div class="ms-auto me-auto w-50 text-center">
+        <div class="border border-primary bg-info-subtle">
+            <h3>Change password</h3>
+            <p>Click <a href="/new-password">this link</a> to change your password.</p>
+        </div>
+        <div class="border border-primary bg-info-subtle">
+            <h3>Delete account</h3>
+            <p>Click <a href="/delete-account">this link</a> to delete your account permanently.</p>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block title %}Today{% endblock %}
+
+{% block js_files %}
+    
+{% endblock %}
+
+{% block main %}
+    <div class="d-flex">
+        {% include "includes/sidebar.html" %}
+
+        <div class="w-100">
+            <h1>Today</h1>
+            <div class="w-75 mx-auto">
+                {% include "includes/new-task.html" %}
+                {% include "includes/display-tasks.html" %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

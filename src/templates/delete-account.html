@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block title %}Delete Account{% endblock %}
+
+{% block main %}
+    <div id="delete-account-form-container">
+        <form action="/delete-account" method="post" class="w-50 mx-auto" autocomplete="off">
+            <div class="mb-3 text-center">
+                <h3>Enter Account Details to Delete Account</h3>
+            </div>
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="username" name="username" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <button type="submit" class="mx-auto btn btn-danger">Delete Account</button>
+          </form>
+    </div>
+{% endblock %}

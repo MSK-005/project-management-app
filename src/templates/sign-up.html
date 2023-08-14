@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block main %}
+    <form action="/sign-up" method="post" class="w-50 mx-auto" autocomplete="off">
+        <div class="mb-3 text-center">
+            <h3>Sign Up</h3>
+        </div>
+        <div class="mb-3">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" name="username" required>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" name="password" required>
+        </div>
+        <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="show-password" onclick="showPassword()">
+            <label class="form-check-label" for="show-password">Show password</label>
+        </div>
+        <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="remember-me" name="remember-me">
+            <label class="form-check-label" for="remmeber-me">Remember Me</label>
+        </div>
+        <button type="submit" class="mx-auto btn btn-primary">Sign Up</button>
+      </form>
+
+      <script>
+        function showPassword() {
+            password = document.getElementById('password');
+            if (password.type === 'password') {
+                password.type = 'text';
+            }
+            else {
+                password.type = 'password';
+            }
+        }
+    </script>
+{% endblock %}

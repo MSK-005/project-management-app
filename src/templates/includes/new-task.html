@@ -1,0 +1,22 @@
+<form method="post" autocomplete="off">
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">Heading</span>
+        <input type="text" id="task-heading" name="task-heading" class="form-control" aria-label="Heading" aria-describedby="basic-addon1">
+    </div>
+    <div class="input-group mb-3">
+        <span class="input-group-text">Description</span>
+        <textarea id="task-description" name="task-description" class="form-control" aria-label="Description"></textarea>
+    </div>
+    <div class="input-group mb-3 w-50">
+        <select id="task-priority" name="task-priority" class="form-select">
+            <option value="5" selected>No Priority</option>
+            {% for count in range (1, 5) %}
+                <option value="{{ count }}">Priority {{ count }}</option>
+            {% endfor %}
+        </select>
+        <input type="date" id="task-due-date" name="task-due-date" class="btn btn-outline-secondary ms-2">
+    </div>
+    <div>
+        <button class="btn btn-outline-secondary" type="submit" onsubmit="createTask()">Submit</button>
+    </div>
+</form>

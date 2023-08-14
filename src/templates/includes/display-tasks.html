@@ -1,0 +1,107 @@
+<div>
+    {% if tasks|length < 1 %}
+        <h1>You've got no tasks. Add some!</h1>
+    {% else %}
+        {% for task in tasks %}
+            <div class="card mt-4 mb-2 p-2" id="{{ task.id }}-task-container">
+                <div class="card-body">
+                    <h3 class="card-title" id="task-heading--{{ task.id }}">{{ task.heading }}</h3>
+                </div>
+                <div>
+                    <form action="{{ url_for('views.delete_task', task_id=task.id) }}" method="post">
+                        <button class="btn btn-primary mb-2" type="submit">Delete</button>
+                    </form>
+                    <button class="btn btn-primary" type="button" onclick="editTask({{ task.id }})" id="edit-task-button--{{task.id}}">Edit</button>
+                </div>
+                <div>
+                    {% if task.priority != "5" %}
+                        <span class="me-3">
+                            <span>Priority </span><span id="task-priority--{{ task.id }}">{{ task.priority }}</span> 
+                        </span>
+                    {% endif %}
+                    {% if task.due_date %}
+                        <span class="me-3">
+                            <span>Due on: </span><span id="task-due-date--{{ task.id }}">{{ task.due_date }}</span>
+                        </span>
+                    {% endif %}
+               </div>
+                {% if task.description %}
+                    <div>
+                        <p class="card-text" id="task-description--{{ task.id }}">{{ task.description }}</p>
+                    </div>
+                {% endif %}
+            </div>
+            <form id="edit-task-form--{{ task.id }}" style="display: none;" action="{{ url_for('views.edit_task', task_id=task.id) }}" method="post" autocomplete="off">
+                <div id="edit-task-container--{{ task.id }}">
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1">Edit heading</span>
+                        <input type="text" id="edit-task-heading--{{ task.id }}" name="edit-task-heading--{{ task.id }}" class="form-control" aria-label="Heading" aria-describedby="basic-addon1">
+                    </div>
+                    <div class="input-group w-50">
+                        <select id="edit-task-priority--{{ task.id }}" name="edit-task-priority--{{ task.id }}" class="form-select">
+                            <option value="5" selected>No Priority</option>
+                            {% for count in range (1, 5) %}
+                                <option value="{{ count }}">Priority {{ count }}</option>
+                            {% endfor %}
+                        </select>
+                        <input type="date" id="edit-task-due-date--{{ task.id }}" name="edit-task-due-date--{{ task.id }}" class="btn btn-outline-secondary ms-2">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-text">Description</span>
+                        <textarea id="edit-task-description--{{ task.id }}" name="edit-task-description--{{ task.id }}" class="form-control" aria-label="Description"></textarea>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <button class="btn btn-primary me-3" type="submit">Save</button>
+                        <button type="button" class="btn btn-primary" onclick="cancelEdit({{ task.id }})">Cancel</button>
+                    </div>
+                </div>
+            </form>
+            
+        {% endfor %}
+</div>
+<script>   
+
+    function editTask(taskId) {
+        document.getElementById(`edit-task-form--${taskId}`).style.display = 'block'; 
+        document.getElementById(`${taskId}-task-container`).style.display = 'none';
+
+        let originalTaskHeading = document.getElementById(`task-heading--${taskId}`);
+        let originalTaskPriority = document.getElementById(`task-priority--${taskId}`);
+        let originalTaskDueDate = document.getElementById(`task-due-date--${taskId}`);
+        let originalTaskDescription = document.getElementById(`task-description--${taskId}`);
+
+        let editTaskHeading = document.getElementById(`edit-task-heading--${taskId}`);
+        let editTaskPriority = document.getElementById(`edit-task-priority--${taskId}`);
+        let editTaskDueDate = document.getElementById(`edit-task-due-date--${taskId}`);
+        let editTaskDescription = document.getElementById(`edit-task-description--${taskId}`);
+
+        editTaskHeading.value = originalTaskHeading.innerHTML;
+
+        console.log(originalTaskPriority);
+        if (originalTaskPriority) {
+            if (parseInt(originalTaskPriority.innerHTML) !== 5) {
+                editTaskPriority.value = parseInt(originalTaskPriority.innerHTML);
+            }
+            else {
+                editTaskPriority.value = 5;
+            }
+        }
+
+        if (originalTaskDueDate) {
+            editTaskDueDate.value = originalTaskDueDate.innerHTML;
+        }
+        else {
+            editTaskDueDate.value = '';
+        }
+
+        editTaskDescription.value = originalTaskDescription.innerHTML;
+        
+            
+    }
+
+    function cancelEdit(taskId) {
+        document.getElementById(`edit-task-form--${taskId}`).style.display = 'none';
+        document.getElementById(`${taskId}-task-container`).style.display = 'block';
+    }
+</script>
+    {% endif %}
